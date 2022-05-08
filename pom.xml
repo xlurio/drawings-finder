@@ -8,7 +8,7 @@
   <artifactId>drawingsfinder</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>drawingsmanager</name>
+  <name>drawingsfinder</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -29,22 +29,16 @@
       <groupId>com.calegario</groupId>
       <artifactId>defaultwins</artifactId>
       <version>1.0-SNAPSHOT</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/csvdb-1.0-SNAPSHOT.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>com.calegario</groupId>
       <artifactId>csvdb</artifactId>
       <version>1.0-SNAPSHOT</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/defaultwins-1.0-SNAPSHOT.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>com.calegario</groupId>
       <artifactId>dtmanager</artifactId>
       <version>1.0-SNAPSHOT</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/dtmanager-1.0-SNAPSHOT.jar</systemPath>
     </dependency>
   </dependencies>
 

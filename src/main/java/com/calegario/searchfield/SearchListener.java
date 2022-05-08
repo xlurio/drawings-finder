@@ -20,12 +20,12 @@ public class SearchListener implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         String drawRef = frame.getUserInput();
-        List<String[]> drawList = new ArrayList<String[]>;
+        List<String[]> drawList = new ArrayList<String[]>();
         drawList = DTManager.filterTable(manager.getDB(), drawRef, 0);
         if (!drawList.isEmpty()) {
             TwoComboBox comboBox = new TwoComboBox(
                 "Abrir desenho",
-                "Informe o tipo de arquivo e forma que deseja abrir:"
+                "Informe o tipo de arquivo e forma que deseja abrir:",
                 new String[]{"PDF", "DWG", "STEP"},
                 new String[]{OPEN_DIRECTLY_OPTION, OPEN_FOLDER_OPTION}
             );
@@ -34,7 +34,7 @@ public class SearchListener implements ActionListener {
                 drawList,
                 comboBox.getCombo1().getCombo().getSelectedItem().toString(),
                 comboBox.getCombo2().getCombo().getSelectedItem().toString()
-            ))
+            ));
             comboBox.showBox();
         }
     }

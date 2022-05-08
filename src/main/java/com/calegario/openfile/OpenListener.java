@@ -1,6 +1,6 @@
 package com.calegario.openfile;
 
-import java.time.format.DataTimeFormatter;
+import java.time.format.DateTimeFormatter;
 import static com.calegario.dtmanager.DTManager;
 import com.calegario.searchfield.SearchListener;
 import com.calegario.defaultwins.twocombobox.TwoComboBox;
@@ -22,8 +22,8 @@ public class OpenListener implements ActionListener {
             this.drawList,
             0,
             3,
-            new DataTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss:SSSSSS'Z'")
-        )
+            new DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss:SSSSSS'Z'")
+        );
         this.openMethod = openMethod;
     }
 
