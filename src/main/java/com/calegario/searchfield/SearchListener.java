@@ -2,6 +2,7 @@ package com.calegario.searchfield;
 
 import com.calegario.defaultwins.inputbox.InputBox;
 import com.calegario.csvdb.CSVDBManager;
+import static com.calegario.dtmanager.DTManager;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,7 +13,7 @@ public class SearchListener implements ActionListener {
     public static final String OPEN_DIRECTLY_OPTION = "Abrir diretamente";
     public static final String OPEN_FOLDER_OPTION = "Abrir local do arquivo";
 
-    public SearchListener(InputBox frame) {
+    public SearchListener(InputBox frame, CSVDBManager manager) {
         this.frame = frame;
         this.manager = manager;
     }
@@ -20,7 +21,7 @@ public class SearchListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String drawRef = frame.getUserInput();
         List<String[]> drawList = new ArrayList<String[]>;
-        drawList = manager.findValue("file_name", drawRef, "path");
+        drawList = DTManager.filterTable(manager.getDB(), drawRef, 0);
         if (!drawList.isEmpty()) {
             TwoComboBox comboBox = new TwoComboBox(
                 "Abrir desenho",

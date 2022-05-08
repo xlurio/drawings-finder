@@ -1,4 +1,4 @@
-package com.calegario.drawingsmanager;
+package com.calegario.drawingsfinder;
 
 import com.calegario.defaultwins.inputbox.InputBox;
 import com.calegario.csvdb.CSVDBManager;
