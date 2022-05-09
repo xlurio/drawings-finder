@@ -15,31 +15,39 @@ import java.util.*;
 public class OpenListener implements ActionListener {
     private TwoComboBox frame;
     private List<String[]> drawList = new ArrayList<String[]>();
-    private String fileType;
-    private String openMethod;
 
-    public OpenListener(TwoComboBox frame, List<String[]> drawList,
-                        String fileType, String openMethod) {
+    public OpenListener(TwoComboBox frame, List<String[]> drawList) {
         this.frame = frame;
-        this.drawList = DTManager.filterTable(drawList, fileType, 1);
-        this.drawList = DTManager.getLastObjects(
-            this.drawList,
-            0,
-            3,
-            new DateTimeFormatterBuilder()
-            .appendPattern("yyyy-MM-dd'T'HH:mm:ss:SSSSSS'Z'")
-            .toFormatter()
-        );
-        this.openMethod = openMethod;
+        this.drawList = drawList;
     }
 
     public void actionPerformed(ActionEvent e) {
-        String drawPath = this.drawList.get(0)[2];
+        // Get user preferences
+        final String fileType =
+            String.valueOf(frame.getCombo1().getCombo().getSelectedItem());
+        final String openMethod =
+            String.valueOf(frame.getCombo2().getCombo().getSelectedItem());
+
+        // Filter
+        drawList = DTManager.filterTable(drawList,
+                                         fileType.toLowerCase(),
+                                         1);
+         drawList = DTManager.getLastObjects(
+             drawList,
+             0,
+             3,
+             new DateTimeFormatterBuilder()
+             .appendPattern("yyyy-MM-dd'T'HH:mm:ss[.SSSSSSS]'Z'")
+             .toFormatter()
+         );
+
+        // On click
+        String drawPath = drawList.get(0)[2];
         try {
             if (openMethod.equals(SearchListener.OPEN_FOLDER_OPTION)) {
                 frame.dispose();
                 String dirPath =
-                    Paths.get(drawPath).getParent().getFileName().toString();
+                    (new File(drawPath)).getParentFile().getAbsolutePath();
                 Desktop.getDesktop().open(new File(dirPath));
             } else {
                 frame.dispose();

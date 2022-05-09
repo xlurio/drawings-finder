@@ -28,6 +28,7 @@ public class SearchListener implements ActionListener {
         String drawRef = frame.getUserInput();
         List<String[]> drawList = new ArrayList<String[]>();
         try {
+            drawList = manager.getDB();
             drawList = DTManager.filterTable(manager.getDB(), drawRef, 0);
             if (!drawList.isEmpty()){
                 TwoComboBox comboBox = new TwoComboBox(
@@ -38,9 +39,7 @@ public class SearchListener implements ActionListener {
                 );
                 comboBox.setBtnListener(new OpenListener(
                     comboBox,
-                    drawList,
-                    comboBox.getCombo1().getCombo().getSelectedItem().toString(),
-                    comboBox.getCombo2().getCombo().getSelectedItem().toString()
+                    drawList
                 ));
                 comboBox.showBox();
             } else {

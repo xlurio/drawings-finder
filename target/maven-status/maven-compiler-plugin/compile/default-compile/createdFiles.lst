@@ -1,4 +1,4 @@
-com/calegario/searchfield/SearchListener.class
-com/calegario/drawingsfinder/App.class
-com/calegario/drawingsfinder/Settings.class
-com/calegario/openfile/OpenListener.class
+com\calegario\searchfield\SearchListener.class
+com\calegario\drawingsfinder\Settings.class
+com\calegario\drawingsfinder\App.class
+com\calegario\openfile\OpenListener.class
