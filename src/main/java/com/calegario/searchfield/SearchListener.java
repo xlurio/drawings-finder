@@ -34,6 +34,7 @@ public class SearchListener implements ActionListener {
                 TwoComboBox comboBox = new TwoComboBox(
                     "Abrir desenho",
                     "Informe o tipo de arquivo e forma que deseja abrir:",
+                    false,
                     new String[]{"PDF", "DWG", "STEP"},
                     new String[]{OPEN_DIRECTLY_OPTION, OPEN_FOLDER_OPTION}
                 );

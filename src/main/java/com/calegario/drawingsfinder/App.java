@@ -21,6 +21,7 @@ public class App
         InputBox searchField = new InputBox(
             "Procurar desenhos",
             "Insira a referência do desenho que deseja encontrar:",
+            true,
             352,
             160
         );
