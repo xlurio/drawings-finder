@@ -11,6 +11,7 @@ import java.io.*;
 import java.time.format.*;
 import javax.swing.*;
 import java.util.*;
+import java.time.temporal.ChronoField;
 
 public class OpenListener implements ActionListener {
     private TwoComboBox frame;
@@ -37,7 +38,12 @@ public class OpenListener implements ActionListener {
              0,
              3,
              new DateTimeFormatterBuilder()
-             .appendPattern("yyyy-MM-dd'T'HH:mm:ss[.SSSSSSS]'Z'")
+             .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
+             .optionalStart()
+             .appendPattern(".")
+             .appendFraction(ChronoField.MICRO_OF_SECOND, 1, 7, false)
+             .optionalEnd()
+             .appendPattern("'Z'")
              .toFormatter()
          );
 

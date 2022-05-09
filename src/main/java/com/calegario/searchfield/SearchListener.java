@@ -35,8 +35,10 @@ public class SearchListener implements ActionListener {
                     "Abrir desenho",
                     "Informe o tipo de arquivo e forma que deseja abrir:",
                     false,
-                    new String[]{"PDF", "DWG", "STEP"},
-                    new String[]{OPEN_DIRECTLY_OPTION, OPEN_FOLDER_OPTION}
+                    new String[]{"PDF", "DWG", "STP", "STEP"},
+                    new String[]{OPEN_DIRECTLY_OPTION, OPEN_FOLDER_OPTION},
+                    352,
+                    192
                 );
                 comboBox.setBtnListener(new OpenListener(
                     comboBox,
