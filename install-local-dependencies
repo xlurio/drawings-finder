@@ -1,17 +1,17 @@
 mvn install:install-file \
--Dfile=/home/xlurio/Projects/DrawingsFinder/drawings-finder/lib/csvdb-1.0-SNAPSHOT.jar \
+-Dfile=csvdb-1.0-SNAPSHOT.jar \
 -DgroupId=com.calegario \
 -DartifactId=csvdb \
 -Dversion=1.0-SNAPSHOT \
 -Dpackaging=jar && \
 mvn install:install-file \
--Dfile=/home/xlurio/Projects/DrawingsFinder/drawings-finder/lib/defaultwins-1.0-SNAPSHOT.jar \
+-Dfile=defaultwins-1.0-SNAPSHOT.jar \
 -DgroupId=com.calegario \
 -DartifactId=defaultwins \
 -Dversion=1.0-SNAPSHOT \
 -Dpackaging=jar && \
 mvn install:install-file \
--Dfile=/home/xlurio/Projects/DrawingsFinder/drawings-finder/lib/dtmanager-1.0-SNAPSHOT.jar \
+-Dfile=dtmanager-1.0-SNAPSHOT.jar \
 -DgroupId=com.calegario \
 -DartifactId=dtmanager \
 -Dversion=1.0-SNAPSHOT \
