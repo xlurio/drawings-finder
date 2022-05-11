@@ -43,8 +43,7 @@ public class App
         CSVDBManager manager = new CSVDBManager(
             Settings.CSV_PATH,
             header,
-            '|',
-            StandardCharsets.ISO_8859_1
+            '|'
         );
         List<String[]> drawList = manager.getDB();
         InputBox searchField = new InputBox(
