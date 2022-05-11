@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import java.util.*;
+import static com.calegario.message.Message.*;
 
 public class SearchListener implements ActionListener {
     private InputBox frame;
@@ -25,6 +26,12 @@ public class SearchListener implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        /**
+         * Look if there is a file name with containing the specified keyword
+         and:
+         * If it does: call the open parameters dialog;
+         * If it does not: Tells the user the file was not found
+        **/
         String drawRef = frame.getUserInput();
         List<String[]> drawList = new ArrayList<String[]>();
         try {
@@ -46,20 +53,11 @@ public class SearchListener implements ActionListener {
                 ));
                 comboBox.showBox();
             } else {
-                JOptionPane.showMessageDialog(
-                    null,
-                    "Desenho '" + drawRef + "' não encontrado",
-                    "ERRO",
-                    JOptionPane.ERROR_MESSAGE
-                );
+                showErrorDialog("Desenho '" + drawRef + "' não encontrado");
             }
         } catch (IOException ex){
-            JOptionPane.showMessageDialog(
-                null,
-                "'" + Settings.CSV_PATH + "' não encontrado",
-                "ERRO",
-                JOptionPane.ERROR_MESSAGE
-            );
+            showErrorDialog("Não foi possível gravar o arquivo '" +
+                            Settings.CSV_PATH + "'");
         }
     }
 }

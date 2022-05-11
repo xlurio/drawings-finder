@@ -12,6 +12,7 @@ import java.time.format.*;
 import javax.swing.*;
 import java.util.*;
 import java.time.temporal.ChronoField;
+import static com.calegario.message.Message.*;
 
 public class OpenListener implements ActionListener {
     private TwoComboBox frame;
@@ -23,6 +24,10 @@ public class OpenListener implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        /**
+         * Open the file or directory of file of the last modified file
+         in the folder to look with the specified file name
+        **/
         // Get user preferences
         final String fileType =
             String.valueOf(frame.getCombo1().getCombo().getSelectedItem());
@@ -30,22 +35,7 @@ public class OpenListener implements ActionListener {
             String.valueOf(frame.getCombo2().getCombo().getSelectedItem());
 
         // Filter
-        drawList = DTManager.filterTable(drawList,
-                                         fileType.toLowerCase(),
-                                         1);
-         drawList = DTManager.getLastObjects(
-             drawList,
-             0,
-             3,
-             new DateTimeFormatterBuilder()
-             .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
-             .optionalStart()
-             .appendPattern(".")
-             .appendFraction(ChronoField.MICRO_OF_SECOND, 1, 7, false)
-             .optionalEnd()
-             .appendPattern("'Z'")
-             .toFormatter()
-         );
+        drawList = filterDrawList(drawList, fileType.toLowerCase());
 
         // On click
         String drawPath = drawList.get(0)[2];
@@ -60,12 +50,32 @@ public class OpenListener implements ActionListener {
                 Desktop.getDesktop().open(new File(drawPath));
             }
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(
-                null,
-                "'" + drawPath + "' não encontrado",
-                "ERRO",
-                JOptionPane.ERROR_MESSAGE
-            );
+            showErrorDialog("'" + drawPath + "' não encontrado");
         }
+    }
+
+    private static List<String[]> filterDrawList(
+        List<String[]> drawListToFilter, String fileTypeToFilter
+    )
+    {
+        /**
+         * Returns filtered draw list
+        **/
+        drawListToFilter = DTManager.filterTable(drawListToFilter,
+                                                 fileTypeToFilter,
+                                                 1);
+        return DTManager.getLastObjects(
+             drawListToFilter,
+             0,
+             3,
+             new DateTimeFormatterBuilder()
+             .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
+             .optionalStart()
+             .appendPattern(".")
+             .appendFraction(ChronoField.MICRO_OF_SECOND, 1, 7, false)
+             .optionalEnd()
+             .appendPattern("'Z'")
+             .toFormatter()
+         );
     }
 }

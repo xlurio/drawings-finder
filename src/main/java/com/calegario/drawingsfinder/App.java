@@ -6,35 +6,55 @@ import com.calegario.searchfield.SearchListener;
 import java.io.*;
 import java.util.*;
 import javax.swing.JOptionPane;
+import java.nio.charset.*;
+import static com.calegario.message.Message.*;
 
 public class App
 {
-    public static void main( String[] args ) throws FileNotFoundException, IOException
+    public static void main( String[] args )
     {
+        /**
+         * Program that finds and opens pdf, dwg, stp and step files by a
+         keyword
+        **/
         if (!Settings.CSV_PATH.isEmpty()) {
-            String[] header = new String[]{
-                "file_name", "extension", "path", "last_mod"
-            };
-            CSVDBManager manager = new CSVDBManager(Settings.CSV_PATH,
-                                                    header,
-                                                    '|');
-            List<String[]> drawList = manager.getDB();
-            InputBox searchField = new InputBox(
-                "Procurar desenhos",
-                "Insira a referência do desenho que deseja encontrar:",
-                true,
-                352,
-                160
-            );
-            searchField.setBtnListener(new SearchListener(searchField, manager));
-            searchField.showBox();
+            try{
+                showSearchField();
+            } catch (FileNotFoundException ex) {
+                showErrorDialog("'" + Settings.CSV_PATH + "' não encontrado");
+            } catch (IOException ex) {
+                showErrorDialog("Não foi possível gravar o arquivo '" +
+                                Settings.CSV_PATH + "'");
+            }
         } else {
-            JOptionPane.showMessageDialog(
-                null,
-                "CSV_PATH não configurado",
-                "ERRO",
-                JOptionPane.ERROR_MESSAGE
-            );
+            showErrorDialog("CSV_PATH não configurado");
         }
+    }
+
+    private static void showSearchField()
+        throws FileNotFoundException, IOException
+    {
+        /**
+         * Paint the drawings search field
+        **/
+        String[] header = new String[]{
+            "file_name", "extension", "path", "last_mod"
+        };
+        CSVDBManager manager = new CSVDBManager(
+            Settings.CSV_PATH,
+            header,
+            '|',
+            StandardCharsets.ISO_8859_1
+        );
+        List<String[]> drawList = manager.getDB();
+        InputBox searchField = new InputBox(
+            "Procurar desenhos",
+            "Insira a referência do desenho que deseja encontrar:",
+            true,
+            352,
+            160
+        );
+        searchField.setBtnListener(new SearchListener(searchField, manager));
+        searchField.showBox();
     }
 }
