@@ -14,6 +14,7 @@ import java.util.*;
 import java.time.temporal.ChronoField;
 import static com.calegario.message.Message.*;
 import static com.calegario.utf8debugger.UTF8Debugger.*;
+import java.lang.ProcessBuilder;
 
 public class OpenListener implements ActionListener {
     private TwoComboBox frame;
@@ -69,14 +70,7 @@ public class OpenListener implements ActionListener {
              drawListToFilter,
              0,
              3,
-             new DateTimeFormatterBuilder()
-             .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
-             .optionalStart()
-             .appendPattern(".")
-             .appendFraction(ChronoField.MICRO_OF_SECOND, 1, 7, false)
-             .optionalEnd()
-             .appendPattern("'Z'")
-             .toFormatter()
+             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
          );
     }
 }
