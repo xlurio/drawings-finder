@@ -15,6 +15,7 @@ import java.time.temporal.ChronoField;
 import static com.calegario.message.Message.*;
 import static com.calegario.utf8debugger.UTF8Debugger.*;
 import java.lang.ProcessBuilder;
+import java.lang.ArrayIndexOutOfBoundsException;
 
 public class OpenListener implements ActionListener {
     private TwoComboBox frame;
@@ -40,23 +41,26 @@ public class OpenListener implements ActionListener {
         drawList = filterDrawList(drawList, fileType.toLowerCase());
 
         // On click
-        String drawPath = replaceUnmappedChars(drawList.get(0)[2]);
-        try {
-            if (openMethod.equals(SearchListener.OPEN_FOLDER_OPTION)) {
-                frame.dispose();
-                String dirPath =
-                    (new File(drawPath)).getParentFile().getAbsolutePath();
-                Desktop.getDesktop().open(new File(dirPath));
-            } else {
-                frame.dispose();
-                Desktop.getDesktop().open(new File(drawPath));
+        if (!drawList.isEmpty()){
+            String drawPath = drawList.get(0)[2];
+            String cleanedDrawPath = replaceUnmappedChars(drawPath);
+            try {
+                File drawFile = new File(cleanedDrawPath);
+                if (openMethod.equals(SearchListener.OPEN_FOLDER_OPTION)) {
+                    frame.dispose();
+                    File drawDirectory = drawFile.getParentFile();
+                    Desktop.getDesktop().open(drawDirectory);
+                } else {
+                    frame.dispose();
+                    Desktop.getDesktop().open(drawFile);
+                }
+            } catch (IOException ex) {
+                showErrorDialog("'" + cleanedDrawPath + "' não encontrado");
             }
-        } catch (IOException ex) {
-            showErrorDialog("'" + drawPath + "' não encontrado");
         }
     }
 
-    private static List<String[]> filterDrawList(
+    private List<String[]> filterDrawList(
         List<String[]> drawListToFilter, String fileTypeToFilter
     )
     {
@@ -66,11 +70,20 @@ public class OpenListener implements ActionListener {
         drawListToFilter = DTManager.filterTable(drawListToFilter,
                                                  fileTypeToFilter,
                                                  1);
-        return DTManager.getLastObjects(
-             drawListToFilter,
-             0,
-             3,
-             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
-         );
+        if (!drawListToFilter.isEmpty()) {
+            return DTManager.getLastObjects(
+                 drawListToFilter,
+                 0,
+                 3,
+                 DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+             );
+         } else {
+             frame.dispose();
+             showErrorDialog(
+                "O formato '" + fileTypeToFilter +
+                "' não está disponível para este desenho"
+            );
+            return new ArrayList<String[]>();
+         }
     }
 }

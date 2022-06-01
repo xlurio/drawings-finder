@@ -33,11 +33,11 @@ public class SearchListener implements ActionListener {
          * If it does not: Tells the user the file was not found
         **/
         String drawRef = frame.getUserInput();
-        List<String[]> drawList = new ArrayList<String[]>();
         try {
-            drawList = manager.getDB();
-            drawList = DTManager.filterTable(manager.getDB(), drawRef, 0);
-            if (!drawList.isEmpty()){
+            List<String[]> drawList = manager.getDB();
+            List<String[]> filteredDrawList =
+                DTManager.filterTable(drawList, drawRef, 0);
+            if (!filteredDrawList.isEmpty()){
                 TwoComboBox comboBox = new TwoComboBox(
                     "Abrir desenho",
                     "Informe o tipo de arquivo e forma que deseja abrir:",
@@ -49,7 +49,7 @@ public class SearchListener implements ActionListener {
                 );
                 comboBox.setBtnListener(new OpenListener(
                     comboBox,
-                    drawList
+                    filteredDrawList
                 ));
                 comboBox.showBox();
             } else {
